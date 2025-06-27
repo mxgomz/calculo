@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculadora Médica</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #007aff;
+    }
+
+    .item {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+      padding: 20px;
+      margin: 10px 0;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .item-name {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn {
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      color: white;
+      background-color: #007aff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn:hover {
+      background-color: #005ecb;
+    }
+
+    .quantity {
+      font-size: 16px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    button#calcular {
+      margin-top: 25px;
+      padding: 12px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    button#calcular:hover {
+      background-color: #218838;
+    }
+
+    #resultado {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Calculadora Médica</h1>
+
+  <div class="item" data-preco="500">
+    <span class="item-name">Tratamento ($500)</span>
+    <div class="controls">
+      <button class="btn" onclick="alterarQtd(this, -1)">-</button>
+      <span class="quantity">0</span>
+      <button class="btn" onclick="alterarQtd(this, 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item" data-preco="400">
+    <span class="item-name">Bandagem ($400)</span>
+    <div class="controls">
+      <button class="btn" onclick="alterarQtd(this, -1)">-</button>
+      <span class="quantity">0</span>
+      <button class="btn" onclick="alterarQtd(this, 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item" data-preco="700">
+    <span class="item-name">Kit Médico ($700)</span>
+    <div class="controls">
+      <button class="btn" onclick="alterarQtd(this, -1)">-</button>
+      <span class="quantity">0</span>
+      <button class="btn" onclick="alterarQtd(this, 1)">+</button>
+    </div>
+  </div>
+
+  <div class="item" data-preco="1000">
+    <span class="item-name">Calmante ($1000)</span>
+    <div class="controls">
+      <button class="btn" onclick="alterarQtd(this, -1)">-</button>
+      <span class="quantity">0</span>
+      <button class="btn" onclick="alterarQtd(this, 1)">+</button>
+    </div>
+  </div>
+
+  <button id="calcular" onclick="calcularTotal()">Calcular Total</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    function alterarQtd(btn, delta) {
+      const qtdSpan = btn.parentElement.querySelector('.quantity');
+      let valor = parseInt(qtdSpan.innerText) || 0;
+      valor += delta;
+      if (valor < 0) valor = 0;
+      qtdSpan.innerText = valor;
+    }
+
+    function calcularTotal() {
+      const itens = document.querySelectorAll('.item');
+      let total = 0;
+
+      itens.forEach(item => {
+        const preco = parseInt(item.getAttribute('data-preco'));
+        const quantidade = parseInt(item.querySelector('.quantity').innerText) || 0;
+        total += preco * quantidade;
+      });
+
+      document.getElementById('resultado').innerText = `Resultado = $${total}`;
+    }
+  </script>
+</body>
+</html>
